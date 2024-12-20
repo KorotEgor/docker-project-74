@@ -1,0 +1,25 @@
+name: push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Test app
+        run: make test
+
+      - name: Login to DockerHub
+        run: docker login
+
+      - name: Build docker compose app
+        run: make build
+
+      - name: Push docker image
+        run: make push
